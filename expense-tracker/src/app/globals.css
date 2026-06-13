@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: animateIn 0.2s ease-out both;
+  }
+
+  .fade-in {
+    --enter-opacity: 0;
+  }
+
+  .zoom-in-95 {
+    --enter-scale: 0.95;
+  }
+
+  @keyframes animateIn {
+    from {
+      opacity: var(--enter-opacity, 1);
+      transform: scale(var(--enter-scale, 1));
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
