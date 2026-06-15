@@ -9,6 +9,7 @@ import { ExpenseList } from '@/components/expenses/ExpenseList'
 import { ExpenseForm } from '@/components/expenses/ExpenseForm'
 import { Modal } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
+import { exportToCSV } from '@/lib/utils'
 
 type Tab = 'dashboard' | 'expenses'
 
@@ -82,9 +83,14 @@ export default function Home() {
       <main className="mx-auto max-w-5xl px-4 py-6">
         {tab === 'dashboard' ? (
           <div className="flex flex-col gap-5">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-sm text-gray-500">Your spending overview at a glance</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+                <p className="text-sm text-gray-500">Your spending overview at a glance</p>
+              </div>
+              <Button variant="secondary" size="sm" onClick={() => exportToCSV(expenses)}>
+                Export Data
+              </Button>
             </div>
             <SummaryCards expenses={expenses} />
             <SpendingChart expenses={expenses} />
