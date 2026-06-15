@@ -9,6 +9,7 @@ import { ExpenseList } from '@/components/expenses/ExpenseList'
 import { ExpenseForm } from '@/components/expenses/ExpenseForm'
 import { Modal } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
+import { ExportModal } from '@/components/export/ExportModal'
 
 type Tab = 'dashboard' | 'expenses'
 
@@ -16,6 +17,7 @@ export default function Home() {
   const { expenses, isLoaded, addExpense, updateExpense, deleteExpense } = useExpenses()
   const [tab, setTab] = useState<Tab>('dashboard')
   const [showAdd, setShowAdd] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleAdd = async (data: any) => {
@@ -69,12 +71,20 @@ export default function Home() {
             ))}
           </nav>
 
-          <Button onClick={() => setShowAdd(true)} size="sm">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Add Expense
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" onClick={() => setShowExport(true)} size="sm">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Export
+            </Button>
+            <Button onClick={() => setShowAdd(true)} size="sm">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Add Expense
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -107,6 +117,13 @@ export default function Home() {
           isSubmitting={isSubmitting}
         />
       </Modal>
+
+      {/* Export Modal */}
+      <ExportModal
+        open={showExport}
+        onClose={() => setShowExport(false)}
+        expenses={expenses}
+      />
     </div>
   )
 }
